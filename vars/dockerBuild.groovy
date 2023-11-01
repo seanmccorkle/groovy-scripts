@@ -1,7 +1,7 @@
 def call() {
-    def command = 'cd ${APP_ORIGIN_WORKSPACE} && find * -maxdepth 0 -type d'
-    def output = ['bash', '-c', command].execute().in.text
-    def directories = output.trim().split('\r?\n')
+    command = 'cd ${APP_ORIGIN_WORKSPACE} && find * -maxdepth 0 -type d'
+    output = ['bash', '-c', command].execute().in.text
+    directories = output.trim().split('\r?\n')
     node {
         stage("docker build main branch") {
             script {
