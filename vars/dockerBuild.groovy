@@ -1,6 +1,6 @@
 def call() {
     String[] apps = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 0 -type d', returnStdout: true)
-    directories = apps.split("\n")*.trim()
+    directories = apps.split("\n").trim()
     node {
         stage("docker build main branch") {
             script {
