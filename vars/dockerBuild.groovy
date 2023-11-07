@@ -1,5 +1,5 @@
 def call() {
-    def directories = sh(script: 'cd ${APP_ORIGIN_WORKSPACE} && find * -maxdepth 0 -type d', returnStdout: true)
+    def directories = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 0 -type d', returnStdout: true)
     node {
         stage("docker build main branch") {
             script {
