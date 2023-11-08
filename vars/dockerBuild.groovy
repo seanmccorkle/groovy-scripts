@@ -5,8 +5,10 @@ def call() {
             script {
               sh "echo 'docker build'"
               sh "echo 'APP_ORIGIN_WORKSPACE = ${APP_ORIGIN_WORKSPACE}'"
-              for( app in directories ) {
+              if (directories.first() != "") {
+                for( app in directories ) {
                   println app
+                }
               }
             }
         }
