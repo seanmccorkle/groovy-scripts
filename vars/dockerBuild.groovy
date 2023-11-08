@@ -16,6 +16,7 @@ def call() {
                       for( app in directories ) {
                           println app
                       }
+                  }
               }
                 
               //if (directories.first() != "") {
