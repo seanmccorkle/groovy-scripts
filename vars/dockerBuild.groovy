@@ -9,12 +9,12 @@ def call() {
                 // there are multiple directories possibly containing Dockerfiles
                 for( app in directories ) {
                   println app
-                  dockerfile = findFiles(glob: '*Dockerfile*')
+                  def dockerfile = findFiles(glob: '*Dockerfile*')
                   sh "echo '${dockerfile}'"
                 }
               } else {
                   // there are no directories so check for a Dockerfile
-                  dockerfile = findFiles(glob: '*Dockerfile*')
+                  def dockerfile = findFiles(glob: '*Dockerfile*')
                   sh "echo '${dockerfile}'"
               }
             }
