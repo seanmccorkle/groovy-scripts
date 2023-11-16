@@ -1,20 +1,31 @@
 def call() {
+    // check for directories located under app directory 
     def directories = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 0 -type d', returnStdout: true).trim().split('\n')
+    // check for a single Dockerfile under app directory
+    def dockerfile = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 0 -type f | grep -i dockerfile', returnStdout: true).trim().split('\n'))
+    // check for Dockerfiles located in nested directories under app directory
+    def dockerfiles = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 1 -type f | grep -i dockerfile', returnStdout: true).trim().split('\n'))
     node {
         stage("docker build main branch") {
             script {
               sh "echo 'docker build'"
               sh "echo 'APP_ORIGIN_WORKSPACE = ${APP_ORIGIN_WORKSPACE}'"
-              File dockerfile = new File("${APP_ORIGIN_WORKSPACE}/app/Dockerfile")
 
-              if (dockerfile.exists()) {
-                  println("Build container image using Dockerfile")
-              } else {
-                  println("Check directories for Dockerfiles")
-                  if (directories.first() != "") {
-                      // there are multiple directories possibly containing Dockerfiles
-                      for( app in directories ) {
-                          println app
+              //File dockerfile = new File("${APP_ORIGIN_WORKSPACE}/app/Dockerfile")
+
+              if (dockerfile.first() != "") {
+                println("cd ${APP_ORIGIN_WORKSPACE}/app/ && docker build -t app:latest .")
+              }
+
+              if (directories.first() != "" && dockerfiles.first() != "") {
+                  // there are at least one or more directories and Dockerfiles
+                  for( app in directories ) {
+                      println("check ${app} directory for a Dockerfile")
+                      for( this_dockerfile in dockerfiles) {
+                        if (this_dockerfile.contains('${app}')) {
+                          println("cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} .")
+                          //def build_image = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} Dockerfile')
+                        }
                       }
                   }
               }
