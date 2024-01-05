@@ -31,7 +31,7 @@ def call() {
                       for( this_dockerfile in dockerfiles) {
                         println("this_dockerfile ${this_dockerfile}")
                         //if (this_dockerfile.contains('${app}/Dockerfile')) {
-                        if (this_dockerfile.equals('${app}/Dockerfile')) {
+                        if (this_dockerfile.equals("${app}/Dockerfile")) {
                           println("cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} .")
                           //def build_image = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} Dockerfile')
                         }
