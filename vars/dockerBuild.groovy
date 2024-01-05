@@ -23,11 +23,13 @@ def call() {
                 println("file ${APP_ORIGIN_WORKSPACE}/app/Dockerfile doesn't exist")
               }
 
+              
               if (directories.first() != "" && dockerfiles.first() != "") {
                   // there are at least one or more directories and Dockerfiles
                   for( app in directories ) {
                       println("check ${app} directory for a Dockerfile")
                       for( this_dockerfile in dockerfiles) {
+                        println("this_dockerfile ${this_dockerfile}")
                         if (this_dockerfile.contains('${app}')) {
                           println("cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} .")
                           //def build_image = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} Dockerfile')
