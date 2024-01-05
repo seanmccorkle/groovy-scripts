@@ -2,8 +2,9 @@ def call() {
     // check for directories located under app directory 
     def directories = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find * -maxdepth 0 -type d', returnStdout: true).trim().split('\n')
     // check for a single Dockerfile under app directory
-    def dockerfile = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find Dockerfile', returnStatus: true)
+    //def dockerfile = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find Dockerfile', returnStatus: true) //find: Dockerfile: No such file or directory
     //def dockerfile = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find Dockerfile', returnStdout: true).trim().split('\n') //ERROR: script returned exit code 1
+    def dockerfile = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find Dockerfile', returnStdout: true)
     // check for Dockerfiles located in nested directories under app directory
     def dockerfiles = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app && find */Dockerfile', returnStdout: true).trim().split('\n')
     node {
