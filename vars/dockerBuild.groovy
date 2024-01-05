@@ -33,7 +33,8 @@ def call() {
                         //if (this_dockerfile.contains('${app}/Dockerfile')) {
                         def target = "${app}/Dockerfile"
                         println("target ${target}")
-                        if (this_dockerfile.equals(target)) {
+                        //if (this_dockerfile.equals(target)) {
+                        if (this_dockerfile.compareTo(target) == 0) {
                           println("cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} .")
                           //def build_image = sh(script: 'cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} Dockerfile')
                         }
