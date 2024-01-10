@@ -25,14 +25,14 @@ def call() {
 
               
               if (directories.first() != "" && dockerfiles.first() != "") {
-                  // there are at least one or more directories and Dockerfiles
+                  // there are one or more nested directories under app which might contain Dockerfiles
                   for( app in directories ) {
+                      def target = "${app}/Dockerfile"
                       println("check ${app} directory for a Dockerfile")
                       for( this_dockerfile in dockerfiles) {
                         println("this_dockerfile ${this_dockerfile}")
-                        //if (this_dockerfile.contains('${app}/Dockerfile')) {
-                        def target = "${app}/Dockerfile"
                         println("target ${target}")
+                        //if (this_dockerfile.contains('${app}/Dockerfile')) {
                         //if (this_dockerfile.equals(target)) {
                         if (this_dockerfile.compareTo(target) == 0) {
                           println("cd ${APP_ORIGIN_WORKSPACE}/app/${app} && docker build -t ${app} .")
